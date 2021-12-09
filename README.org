@@ -2,13 +2,25 @@
 
 * Table of Contents :toc:noexport:
 - [[#intro][Intro]]
+- [[#install][Install]]
 - [[#adding-own-customization][Adding own customization]]
 
 * Intro
 This is my emacs configuration.
 
+* Install
+First, backup emacs config files:
+#+begin_src shell
+  mv ~/.emacs.d ~/.emacs.bak
+#+end_src
+
+Then, clone this repository:
+#+begin_src shell
+  git clone --depth=1 https://github.com/ypcodes/ymacs.git ~/.emacs.d
+#+end_src
+
 * Adding own customization
-User's configuration should be located in ~$HOME/.ymacs.d/config.el~ and
+User's configuration should be located in ~$HOME/.ymacs.d/config.el~ d
 looks like this:
 
 #+begin_src emacs-lisp
