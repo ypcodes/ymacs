@@ -46,7 +46,6 @@
   :load-path "~/.emacs.d/elpa/doom-snippets"
   :after yasnippet)
 
-
 ;; lsp
 (use-package lsp-mode
   :ensure t
@@ -57,13 +56,19 @@
          (cc-mode . lsp)
          ;; if you want which-key integration
          (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
+  :commands lsp
+  :config
+  (setq ccls-sem-highlight-method 'overlay)
+  ;; (ccls-call-hierarchy t)
+  )
 
 ;; optionally
 (use-package lsp-ui :ensure t :commands lsp-ui-mode)
+
 (use-package lsp-treemacs :ensure t :commands lsp-treemacs-errors-list)
-;; optionally if you want to use debugger
-(use-package dap-mode :ensure t
+
+(use-package dap-mode
+  :ensure t
   :config
   (require 'dap-lldb)
   (setq dap-lldb-debug-program '("/usr/bin/lldb-vscode"))
@@ -78,12 +83,6 @@
       (find-file-existing filename)))
   )
 (use-package dap-lldb)
-
-;; optional if you want which-key integration
-(use-package which-key
-  :ensure t
-  :config
-  (which-key-mode))
 
 (provide 'init-company)
 ;;; init-company.el ends here

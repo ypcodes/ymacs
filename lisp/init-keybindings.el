@@ -25,5 +25,11 @@
 
 (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
 
+(define-key global-map (kbd "C-c c f") #'(lambda () (interactive) (find-file "~/.emacs.d/init.el")))
+(define-key global-map (kbd "C-c c c") #'(lambda () (interactive) (find-file "~/.ymacs.d/config.el")))
+(define-key global-map (kbd "<s-return>") #'vterm)
+(define-key global-map (kbd "C-c o t") #'vterm-toggle)
+(define-key global-map (kbd "C-c o p") #'treemacs)
+
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here

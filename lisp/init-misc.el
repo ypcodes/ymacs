@@ -24,14 +24,16 @@
 
 ;;; Code:
 
-(use-package vterm
+(use-package all-the-icons
   :ensure t
-  :bind ("C-c T" . vterm))
+  :if (display-graphic-p))
+
+(use-package vterm
+  :ensure t)
 
 (use-package vterm-toggle
   :ensure t
-  :after vterm
-  :bind ("C-c t" . vterm-toggle))
+  :after vterm)
 
 ;; pdftools
 (use-package pdf-tools
@@ -53,6 +55,27 @@
   (treemacs-fringe-indicator-mode)
   (treemacs-git-mode 'deferred)
   (treemacs-filewatch-mode))
+
+(use-package treemacs-magit
+  :ensure t
+  :after (treemacs magit))
+
+(use-package treemacs-all-the-icons
+  :ensure t
+  :after (treemacs)
+  :config
+  (treemacs-load-all-the-icons-with-workaround-font "Hermit"))
+
+(use-package treemacs-icons-dired
+  :ensure t
+  :after dired
+  :hook (dired-mode . treemacs-icons-dired-mode))
+
+(use-package which-key
+  :ensure t
+  :config
+  (which-key-mode)
+  (setq which-key-show-early-on-C-h t))
 
 (provide 'init-misc)
 ;;; init-misc.el ends here

@@ -41,22 +41,19 @@
 (use-package smex
   :ensure t
   :config
-  (setq smex-prompt-string "M-x: ")
+  (setq smex-prompt-string "Smex: ")
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex)
   (global-set-key (kbd "M-X") 'smex-major-mode-commands)
   ;; This is your old M-x.
   (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
 
-(use-package ido
-  :config (ido-mode))
-
 (use-package ido-grid-mode
   :after smex
   :ensure t
   :init
   (setq ido-grid-mode-max-columns 7
-        ido-grid-mode-max-rows 0
+        ido-grid-mode-max-rows 1
         ido-grid-mode-prefix-scrolls t
         ido-grid-mode-scroll-down #'ido-grid-mode-next-row
         ido-grid-mode-scroll-up #'ido-grid-mode-previous-row
@@ -64,6 +61,23 @@
         ido-grid-mode-start-collapsed t)
   :config
   (ido-grid-mode))
+
+;; highlight
+(use-package symbol-overlay
+  :ensure t
+  :hook (prog-mode . symbol-overlay-mode))
+
+(use-package rainbow-mode
+  :ensure t
+  :hook (prog-mode . rainbow-mode))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package highlight-symbol
+  :ensure t
+  :hook (prog-mode . highlight-symbol-mode))
 
 (provide 'init-ui)
 ;;; init-ui.el ends here

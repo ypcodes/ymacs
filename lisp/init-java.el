@@ -24,20 +24,19 @@
 
 ;;; Code:
 
-(use-package lsp-java
+(use-package meghanada
   :ensure t
   :config
-  (add-hook 'java-mode-hook #'lsp)
-  (setq lsp-java-java-path "/usr/bin/java")
-  (require 'lsp-java-boot)
-  ;; to enable the lenses
-  (add-hook 'lsp-mode-hook #'lsp-lens-mode)
-  (add-hook 'java-mode-hook #'lsp-java-boot-lens-mode)
-  (setq lsp-java-configuration-runtimes '[
-                                          (:name "JavaSE-11"
-                                                 :path "/opt/openjdk-bin-17"
-                                                 :default t)]))
-(use-package dap-java)
+  (add-hook 'java-mode-hook
+            (lambda ()
+              ;; meghanada-mode on
+              (meghanada-mode t)
+              (flycheck-mode +1)
+              (setq c-basic-offset 2)
+              ;; use code format
+              (add-hook 'before-save-hook 'meghanada-code-beautify-before-save)))
+  (setq meghanada-java-path "java")
+  (setq meghanada-maven-path "mvn"))
 
 (provide 'init-java)
 ;;; init-java.el ends here

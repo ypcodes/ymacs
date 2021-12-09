@@ -7,7 +7,7 @@
 ;;; Code:
 
 ;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
-;;(setq debug-on-error t)
+(setq debug-on-error t)
 
 (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
                          ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
@@ -19,30 +19,28 @@
 
 (defvar emacs-theme nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(defconst *cc-mode-use-lsp* t)
 
 (eval-when-compile
   (require 'site-gentoo)
+  ;; (require 'init-benchmark)
   (require 'init-pacmanage)
   (require 'config)
   (require 'init-ui)
   (require 'init-utils)
   (require 'init-isearch)
   (require 'init-company)
-  (require 'init-c)
+  (require 'init-cc)
   (require 'init-java)
   (require 'init-org)
   (require 'init-misc)
-  (require 'init-exwm)
-  )
+  (require 'init-keybindings)
+  (require 'init-exwm))
 
 (use-package emacs
   :init
   (setq inhibit-splash-screen 1)
   (setq fancy-startup-text nil)
   (setq make-backup-file nil)
-  (setq user-full-name "Yeh Peng"
-        user-mail-address "yemouren@protonmail.com")
   (setq browse-url-handlers '(("\\`file:" . browse-url-default-browser)))
   (setq-default dired-dwim-target t)
   (setq-default cursor-type 'bar)
@@ -56,7 +54,8 @@
             (lambda ()
               (setq visible-bell nil)))
   (add-hook 'after-save-hook 'delete-trailing-whitespace)
-  (add-hook 'find-file-hook 'auto-insert))
+  (add-hook 'find-file-hook 'auto-insert)
+  (add-hook 'prog-mode-hook 'hl-line-mode))
 
 (use-package recentf
   :config
@@ -80,12 +79,11 @@
 (use-package paredit
   :ensure t
   :config
-  (add-hook 'emacs-startup-hook 'enable-paredit-mode)
+  (add-hook 'prog-mode-hook 'paredit-mode)
   )
 
 (use-package find-file-in-project
   :ensure t
-  :bind ("C-c C-f" . find-file-in-project)
   :config
   (setq ffip-prefer-ido-mode t))
 
@@ -105,8 +103,7 @@
   :config
   (with-eval-after-load 'origami
     (define-key origami-mode-map (kbd "C-c f") 'origami-recursively-toggle-node)
-    (define-key origami-mode-map (kbd "C-c F") 'origami-toggle-all-nodes))
-  )
+    (define-key origami-mode-map (kbd "C-c F") 'origami-toggle-all-nodes)))
 
 ;; Variables configured via the interactive 'customize' interface
 (when (file-exists-p custom-file)

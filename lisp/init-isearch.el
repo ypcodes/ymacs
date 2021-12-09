@@ -35,6 +35,8 @@ This is useful when followed by an immediate kill."
   (define-key isearch-mode-map [(control return)] 'yeh/isearch-exit-other-end)
   )
 
+(use-package swiper
+  :ensure t)
 
 (provide 'init-isearch)
 ;;; init-isearch.el ends here

@@ -1,4 +1,4 @@
-;;; init-c.el --- c config                           -*- lexical-binding: t; -*-
+;;; init-cc.el --- c config                           -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Yeh Peng
 
@@ -24,6 +24,18 @@
 
 ;;; Code:
 
+;; CCLS
 
-(provide 'init-c)
+(use-package ccls
+  :after (cc-mode)
+  :ensure t
+  :config
+  (setq ccls-executable "/usr/bin/ccls")
+  (ccls-use-default-rainbow-sem-highlight))
+
+(use-package clang-format
+  :ensure t
+  :after cc)
+
+(provide 'init-cc)
 ;;; init-c.el ends here
