@@ -10,12 +10,18 @@
       (load-theme emacs-theme t)
     (load-theme 'doom-one t)))
 
+;; make your theme like emacs
+(use-package theme-magic
+  :ensure t
+  :config
+  (theme-magic-export-theme-mode))
+
 ;; battery
 (use-package fancy-battery
   :ensure t
   :config
   (add-hook 'after-init-hook #'fancy-battery-mode)
-)
+  )
 
 ;; modeline
 (use-package minions

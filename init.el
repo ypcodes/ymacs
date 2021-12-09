@@ -7,7 +7,7 @@
 ;;; Code:
 
 ;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
-(setq debug-on-error t)
+;; (setq debug-on-error t)
 
 (setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
                          ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
@@ -24,7 +24,8 @@
   (require 'site-gentoo)
   ;; (require 'init-benchmark)
   (require 'init-pacmanage)
-  (require 'config)
+  (require 'config nil t)
+  (require 'init-lang)
   (require 'init-ui)
   (require 'init-utils)
   (require 'init-isearch)
@@ -79,13 +80,7 @@
 (use-package paredit
   :ensure t
   :config
-  (add-hook 'prog-mode-hook 'paredit-mode)
-  )
-
-(use-package find-file-in-project
-  :ensure t
-  :config
-  (setq ffip-prefer-ido-mode t))
+  (add-hook 'prog-mode-hook 'paredit-mode))
 
 (use-package magit
   :ensure t)

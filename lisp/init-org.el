@@ -35,7 +35,10 @@
         org-fast-tag-selection-single-key 'expert
         org-html-validation-link nil
         org-export-kill-product-buffer-when-displayed t
-        org-tags-column 80)
+        org-tags-column 5
+        org-directory "~/org/"
+        )
+  :hook ((org-mode . org-indent-mode))
   :config
   (define-key global-map (kbd "C-c l") 'org-store-link)
   (define-key global-map (kbd "C-c a") 'org-agenda)
@@ -44,25 +47,25 @@
               (lambda () (add-hook 'window-configuration-change-hook 'org-agenda-align-tags nil t))))
   (org-babel-do-load-languages
    'org-babel-load-languages
-    '((R . t)
-      (C . t)
-      (ditaa . t)
-      (dot . t)
-      (emacs-lisp . t)
-      (eshell . t)
-      (gnuplot . t)
-      (haskell . nil)
-      (latex . t)
-      (ledger . t)
-      (ocaml . nil)
-      (octave . t)
-      (plantuml . t)
-      (python . t)
-      (ruby . t)
-      (screen . nil)
-      (shell . t)
-      (sql . t)
-      (sqlite . t))))
+   '((R . t)
+     (C . t)
+     (ditaa . t)
+     (dot . t)
+     (emacs-lisp . t)
+     (eshell . t)
+     (gnuplot . t)
+     (haskell . nil)
+     (latex . t)
+     (ledger . t)
+     (ocaml . nil)
+     (octave . t)
+     (plantuml . t)
+     (python . t)
+     (ruby . t)
+     (screen . nil)
+     (shell . t)
+     (sql . t)
+     (sqlite . t))))
 
 (use-package org-tempo
   :after org)
@@ -86,7 +89,20 @@
 (use-package org-pdftools
   :ensure t
   :after org
-  :hook (org-mode . org-pdftools-setup-link)
+  :hook (org-mode . org-pdftools-setup-link))
+
+(use-package org-fancy-priorities
+  :ensure t
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list '("⚡" "⬆" "⬇" "☕")))
+
+(use-package org-books
+  :ensure t
+  :after org
+  :config
+  (setq org-books-file "~/org/booklists.org")
   )
 
 (provide 'init-org)

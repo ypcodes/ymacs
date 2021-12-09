@@ -1,0 +1,18 @@
+#+TITLE: Yeh Peng's personal Emacs config
+
+* Table of Contents :toc:noexport:
+- [[#intro][Intro]]
+- [[#adding-own-customization][Adding own customization]]
+
+* Intro
+This is my emacs configuration.
+
+* Adding own customization
+User's configuration should be located in ~$HOME/.ymacs.d/config.el~ and
+looks like this:
+
+#+begin_src emacs-lisp
+  ;; your code here
+
+  (provide 'config)
+#+end_src
