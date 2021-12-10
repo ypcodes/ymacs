@@ -39,7 +39,9 @@
 (use-package pdf-tools
   :ensure t
   :config
-)
+  (pdf-tools-install)
+  (setq-default pdf-view-display-size 'fit-page)
+  (setq pdf-annot-activate-created-annotations t))
 
 (use-package pdf-view-restore
   :ensure t
@@ -48,8 +50,7 @@
   (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode))
 
 (use-package magit
-  :ensure t
- )
+  :ensure t)
 
 (use-package treemacs
   :ensure t

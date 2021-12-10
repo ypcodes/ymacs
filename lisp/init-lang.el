@@ -43,5 +43,24 @@
           rime-predicate-after-alphabet-char-p
           rime-predicate-prog-in-code-p)))
 
+;; check your grammar
+(use-package langtool
+  :ensure t
+  :init
+  (setq langtool-bin "/usr/bin/languagetool")
+  (setq langtool-mother-tongue "en")
+  :config
+  (defun langtool-autoshow-detail-popup (overlays)
+  (when (require 'popup nil t)
+    ;; Do not interrupt current popup
+    (unless (or popup-instances
+                ;; suppress popup after type `C-g` .
+                (memq last-command '(keyboard-quit)))
+      (let ((msg (langtool-details-error-message overlays)))
+        (popup-tip msg)))))
+  (setq langtool-autoshow-message-function
+        'langtool-autoshow-detail-popup)
+  )
+
 (provide 'init-lang)
 ;;; init-lang.el ends here

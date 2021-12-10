@@ -20,7 +20,7 @@ Then, clone this repository:
 #+end_src
 
 * Adding own customization
-User's configuration should be located in ~$HOME/.ymacs.d/config.el~
+User's configuration should be located in ~$HOME/.ymacs.d/config.el~,
 which should looks like this:
 
 #+begin_src emacs-lisp

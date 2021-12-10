@@ -45,5 +45,8 @@
   :ensure t
   :after (c cc))
 
+(use-package cmake-mode
+  :ensure t)
+
 (provide 'init-cc)
 ;;; init-cc.el ends here
