@@ -127,5 +127,7 @@
   :config
   (exwm-systemtray-enable))
 
+
+
 (provide 'init-exwm)
 ;;; init-exwm.el ends here

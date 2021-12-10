@@ -24,8 +24,9 @@
   (require 'init-benchmark)
   (require 'init-basic)
   (if *use-exwm*
-    (require 'init-exwm))
+      (require 'init-exwm))
   (require 'config nil t)
+  (require 'init-undo)
   (require 'init-fold)
   (require 'init-lang)
   (require 'init-ui)
@@ -40,6 +41,7 @@
   (require 'init-elisp)
   (require 'init-org)
   (require 'init-misc)
+  (require 'init-media)
   (require 'init-keybindings))
 
 (alert "Emacs Launch Success" :title "Emacs")

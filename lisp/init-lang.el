@@ -41,7 +41,7 @@
   (setq rime-disable-predicates
         '(rime-predicate-evil-mode-p
           rime-predicate-after-alphabet-char-p
-          rime-predicate-prog-in-code-pf)))
+          rime-predicate-prog-in-code-p)))
 
 (provide 'init-lang)
 ;;; init-lang.el ends here

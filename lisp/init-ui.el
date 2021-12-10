@@ -17,13 +17,6 @@
   :config
   (theme-magic-export-theme-mode))
 
-;; battery
-(use-package fancy-battery
-  :ensure t
-  :config
-  (add-hook 'after-init-hook #'fancy-battery-mode)
-  )
-
 ;; modeline
 (use-package minions
   :ensure t
@@ -84,5 +77,11 @@
   :ensure t
   :hook (prog-mode . highlight-symbol-mode))
 
+(use-package winum
+  :ensure t
+  :config
+  (winum-mode))
+
 (provide 'init-ui)
+
 ;;; init-ui.el ends here

@@ -40,28 +40,29 @@
   (setq make-backup-file nil)
   (setq browse-url-handlers '(("\\`file:" . browse-url-default-browser)))
   (setq-default dired-dwim-target t)
-  (setq-default cursor-type 'hbar)
+  (setq-default cursor-type 'box)
   (setq-default indent-tabs-mode nil)
   (server-start)
   :config
+  (display-time-mode)
+  (display-battery-mode)
   (ido-mode)
   (delete-selection-mode 1)
   (set-frame-parameter nil 'alpha 85)
   (add-to-list 'default-frame-alist '(alpha . 85))
-
   (add-hook 'emacs-startup-hook
             (lambda ()
               (setq visible-bell nil)))
   (add-hook 'after-save-hook 'delete-trailing-whitespace)
   (add-hook 'find-file-hook 'auto-insert)
   (add-hook 'prog-mode-hook 'hl-line-mode)
-  (add-hook 'prog-mode-hook 'electric-pair-mode))
+  (add-hook 'prog-mode-hook 'electric-pair-mode)
+  (add-hook 'prog-mode-hook 'prettify-symbols-mode))
 
 (use-package recentf
   :config
   (recentf-mode 1)
   (global-set-key (kbd "C-x C-r") 'recentf-open-files))
-
 
 (use-package better-defaults
   :ensure t)

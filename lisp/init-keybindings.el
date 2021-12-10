@@ -30,10 +30,14 @@
 (define-key global-map (kbd "C-c o t") #'vterm-toggle)
 (define-key global-map (kbd "C-c o p") #'treemacs)
 (global-set-key (kbd "<C-return>") (kbd "C-e C-m"))
-(global-set-key (kbd "C-s") #'swiper-isearch)
+(global-set-key (kbd "C-c p f") #'projectile-find-file)
+(global-set-key (kbd "C-c h")  'windmove-left)
+(global-set-key (kbd "C-c l") 'windmove-right)
+(global-set-key (kbd "C-c k")    'windmove-up)
+(global-set-key (kbd "C-c k")  'windmove-down)
 
 (if (not *use-isearch*)
-    (global-set-key (kbd "C-c p f") #'projectile-find-file))
+    (global-set-key (kbd "C-s") #'swiper-isearch))
 
 ;; escape cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)

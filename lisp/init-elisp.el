@@ -24,10 +24,17 @@
 
 ;;; Code:
 
-(use-package paredit
+(use-package lispy
   :ensure t
   :config
-  (add-hook 'emacs-lisp-mode-hook 'paredit-mode))
+  (add-hook 'emacs-lisp-mode-hook 'lispy-mode))
+
+(use-package suggest
+  :ensure t)
+
+(use-package highlight-defined
+  :ensure t
+  :hook (emacs-lisp-mode . highlight-defined-mode))
 
 (provide 'init-elisp)
 ;;; init-elisp.el ends here

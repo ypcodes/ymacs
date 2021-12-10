@@ -1,9 +1,9 @@
-;;; init-pacmanage.el --- Package manager config     -*- lexical-binding: t; -*-
+;;; init-music.el --- Play media in emacs            -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Yeh Peng
 
 ;; Author: Yeh Peng <yemouren@protonmail.com>
-;; Keywords: files
+;; Keywords:
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,20 +20,12 @@
 
 ;;; Commentary:
 
-;; Package manager config
+;;
 
 ;;; Code:
 
-;; package manager
+(use-package bongo
+  :ensure t)
 
-(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
-                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
-(package-initialize)
-
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-
-(provide 'init-pacmanage)
-;;; init-pacmanage.el ends here
+(provide 'init-media)
+;;; init-media.el ends here

@@ -36,9 +36,9 @@
         org-html-validation-link nil
         org-export-kill-product-buffer-when-displayed t
         org-tags-column 5
-        org-directory "~/org/"
-        )
-  :hook ((org-mode . org-indent-mode))
+        org-directory "~/org/"        )
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . display-fill-column-indicator-mode))
   :config
   (define-key global-map (kbd "C-c l") 'org-store-link)
   (define-key global-map (kbd "C-c a") 'org-agenda)
@@ -102,8 +102,12 @@
   :ensure t
   :after org
   :config
-  (setq org-books-file "~/org/booklists.org")
-  )
+  (setq org-books-file "~/org/booklists.org"))
+
+(use-package literate-calc-mode
+  :ensure t
+  :after (org)
+  :hook (org-mode . literate-calc-minor-mode))
 
 (provide 'init-org)
 ;;; init-org.el ends here
