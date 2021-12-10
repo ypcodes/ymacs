@@ -26,8 +26,16 @@
 
 ;; CCLS
 
+(use-package c-mode
+  :hook (c-mode . lsp)
+  :config)
+
+(use-package cc-mode
+  :hook (cc-mode . lsp)
+  :config)
+
 (use-package ccls
-  :after (cc-mode)
+  :after (c-mode c++-mode)
   :ensure t
   :config
   (setq ccls-executable "/usr/bin/ccls")
@@ -35,7 +43,7 @@
 
 (use-package clang-format
   :ensure t
-  :after cc)
+  :after (c cc))
 
 (provide 'init-cc)
-;;; init-c.el ends here
+;;; init-cc.el ends here

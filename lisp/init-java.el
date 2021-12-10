@@ -24,6 +24,7 @@
 
 ;;; Code:
 
+;; lsp-java maybe a better choice, but java-11 on gentoo is unavailable.
 (use-package meghanada
   :ensure t
   :config

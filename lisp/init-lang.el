@@ -31,7 +31,7 @@
   (setq rime-user-data-dir "~/.config/fcitx/rime")
   (setq rime-posframe-properties
         (list :background-color "#333333"
-              :foreground-color "#dcdccc"
+              :foreground-color "#dcdcccx"
               :font "WenQuanYi Micro Hei Mono-15"
               :internal-border-width 10))
   (setq rime-show-candidate 'minibuffer)
@@ -41,8 +41,7 @@
   (setq rime-disable-predicates
         '(rime-predicate-evil-mode-p
           rime-predicate-after-alphabet-char-p
-          rime-predicate-prog-in-code-p
-          rime-predicate-after-alphabet-char-p)))
+          rime-predicate-prog-in-code-pf)))
 
 (provide 'init-lang)
 ;;; init-lang.el ends here

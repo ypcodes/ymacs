@@ -9,105 +9,42 @@
 ;; Produce backtraces when errors occur: can be helpful to diagnose startup issues
 ;; (setq debug-on-error t)
 
-(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
-                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
-(package-initialize)
-
 ;; add ~/.emacs.d/lisp to load path
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (add-to-list 'load-path (expand-file-name ".ymacs.d" (getenv "HOME")))
 
-(defvar emacs-theme nil)
+(defvar emacs-theme nil "What Emacs theme do you use.")
 (defalias 'yes-or-no-p 'y-or-n-p)
+(defconst *use-exwm* t)
+(defconst *use-isearch* nil)
 
 (eval-when-compile
   (require 'site-gentoo)
-  ;; (require 'init-benchmark)
   (require 'init-pacmanage)
+  (require 'init-benchmark)
+  (require 'init-basic)
+  (if *use-exwm*
+    (require 'init-exwm))
   (require 'config nil t)
+  (require 'init-fold)
   (require 'init-lang)
   (require 'init-ui)
   (require 'init-utils)
-  (require 'init-isearch)
+  (if *use-isearch*
+      (require 'init-isearch)
+    (require 'init-swiper))
+  (require 'init-project)
   (require 'init-company)
   (require 'init-cc)
   (require 'init-java)
+  (require 'init-elisp)
   (require 'init-org)
   (require 'init-misc)
-  (require 'init-keybindings)
-  (require 'init-exwm))
+  (require 'init-keybindings))
 
-(use-package emacs
-  :init
-  (setq inhibit-splash-screen 1)
-  (setq fancy-startup-text nil)
-  (setq make-backup-file nil)
-  (setq browse-url-handlers '(("\\`file:" . browse-url-default-browser)))
-  (setq-default dired-dwim-target t)
-  (setq-default cursor-type 'bar)
-  :config
-  (ido-mode)
-  (delete-selection-mode 1)
-  (set-frame-parameter nil 'alpha 85)
-  (add-to-list 'default-frame-alist '(alpha . 85))
-
-  (add-hook 'emacs-startup-hook
-            (lambda ()
-              (setq visible-bell nil)))
-  (add-hook 'after-save-hook 'delete-trailing-whitespace)
-  (add-hook 'find-file-hook 'auto-insert)
-  (add-hook 'prog-mode-hook 'hl-line-mode))
-
-(use-package recentf
-  :config
-  (recentf-mode 1)
-  (global-set-key (kbd "C-x C-r") 'recentf-open-files))
-
-;; helpful
-(use-package helpful
-  :ensure t
-  :bind (("C-h f" . helpful-callable)
-         ("C-h v" . helpful-variable)
-         ("C-h k" . helpful-key)
-         ("C-h C-d" . helpful-at-point)
-         ("C-h F" . helpful-function)
-         ("C-h C" . helpful-command))
-  )
-
-(use-package better-defaults
-  :ensure t)
-
-(use-package paredit
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook 'paredit-mode))
-
-(use-package magit
-  :ensure t)
-
-;; lispy mode
-(use-package lispy
-  :ensure t
-  :config
-  (add-hook 'emacs-lisp-mode-hook 'lispy-mode))
-
-;;; folding
-(use-package origami
-  :ensure t
-  :init (global-origami-mode t)
-  :config
-  (with-eval-after-load 'origami
-    (define-key origami-mode-map (kbd "C-c f") 'origami-recursively-toggle-node)
-    (define-key origami-mode-map (kbd "C-c F") 'origami-toggle-all-nodes)))
-
-;; Variables configured via the interactive 'customize' interface
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-(exwm-enable)
+(alert "Emacs Launch Success" :title "Emacs")
 
 (provide 'init)
-
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t

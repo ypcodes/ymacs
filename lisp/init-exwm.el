@@ -3,10 +3,12 @@
 ;;; Code:
 
 (use-package xelb
+  :if (display-graphic-p)
   :ensure t)
 
 (use-package exwm
-  :ensure
+  :ensure t
+  :if (display-graphic-p)
   :config
   ;; (define-obsolete-function-alias 'exwm-config-default
   ;;   #'exwm-config-example "27.1")
@@ -71,17 +73,17 @@
 
 
 (defun yeh/exwm-input-line-mode ()
-  "Set exwm window to line-mode and show mode line"
+  "Set exwm window to line-mode and show mode line."
   (call-interactively #'exwm-input-grab-keyboard)
   (exwm-layout-show-mode-line))
 
 (defun yeh/exwm-input-char-mode ()
-  "Set exwm window to char-mode and hide mode line"
+  "Set exwm window to char-mode and hide mode line."
   (call-interactively #'exwm-input-release-keyboard)
   (exwm-layout-hide-mode-line))
 
 (defun yeh/exwm-input-toggle-mode ()
-  "Toggle between line- and char-mode"
+  "Toggle between line- and char-mode."
   (interactive)
   (with-current-buffer (window-buffer)
     (when (eq major-mode 'exwm-mode)
@@ -118,6 +120,12 @@
           (lambda ()
             (exwm-workspace-rename-buffer exwm-class-name))
           )
+
+(exwm-enable)
+(use-package exwm-systemtray
+  :after exwm
+  :config
+  (exwm-systemtray-enable))
 
 (provide 'init-exwm)
 ;;; init-exwm.el ends here

@@ -47,6 +47,9 @@
   :config
   (add-hook 'pdf-view-mode-hook 'pdf-view-restore-mode))
 
+(use-package magit
+  :ensure t
+ )
 
 (use-package treemacs
   :ensure t
@@ -71,11 +74,31 @@
   :after dired
   :hook (dired-mode . treemacs-icons-dired-mode))
 
+(use-package treemacs-projectile
+  :ensure t
+  :config
+  )
+
 (use-package which-key
   :ensure t
   :config
   (which-key-mode)
-  (setq which-key-show-early-on-C-h t))
+  (setq which-key-show-early-on-C-h nil))
+
+;; helpful
+(use-package helpful
+  :ensure t
+  :bind (("C-h f" . helpful-callable)
+         ("C-h v" . helpful-variable)
+         ("C-h k" . helpful-key)
+         ("C-h C-d" . helpful-at-point)
+         ("C-h F" . helpful-function)
+         ("C-h C" . helpful-command)))
+
+(use-package alert
+  :ensure t
+  :config
+  (setq alert-default-style 'notifications))
 
 (provide 'init-misc)
 ;;; init-misc.el ends here

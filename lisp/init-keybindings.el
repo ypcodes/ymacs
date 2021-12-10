@@ -24,12 +24,21 @@
 ;;; Code:
 
 (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
-
-(define-key global-map (kbd "C-c c f") #'(lambda () (interactive) (find-file "~/.emacs.d/init.el")))
-(define-key global-map (kbd "C-c c c") #'(lambda () (interactive) (find-file "~/.ymacs.d/config.el")))
+(define-key global-map (kbd "C-c c f") #'ymacs/open-emacs-init-file)
+(define-key global-map (kbd "C-c c c") #'ymacs/open-user-config-file)
 (define-key global-map (kbd "<s-return>") #'vterm)
 (define-key global-map (kbd "C-c o t") #'vterm-toggle)
 (define-key global-map (kbd "C-c o p") #'treemacs)
+(global-set-key (kbd "<C-return>") (kbd "C-e C-m"))
+(global-set-key (kbd "C-s") #'swiper-isearch)
+
+(if (not *use-isearch*)
+    (global-set-key (kbd "C-c p f") #'projectile-find-file))
+
+;; escape cancels all
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+(define-key vterm-mode-map (kbd "<C-backspace>") (kbd "C-w"))
 
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here

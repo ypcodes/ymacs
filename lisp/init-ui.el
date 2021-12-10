@@ -12,6 +12,7 @@
 
 ;; make your theme like emacs
 (use-package theme-magic
+  :after (doom-themes)
   :ensure t
   :config
   (theme-magic-export-theme-mode))
@@ -50,9 +51,7 @@
   (setq smex-prompt-string "Smex: ")
   (smex-initialize)
   (global-set-key (kbd "M-x") 'smex)
-  (global-set-key (kbd "M-X") 'smex-major-mode-commands)
-  ;; This is your old M-x.
-  (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command))
+  (global-set-key (kbd "M-X") 'smex-major-mode-commands))
 
 (use-package ido-grid-mode
   :after smex

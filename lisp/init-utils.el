@@ -43,6 +43,25 @@
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
+(defun ymacs/shutdown ()
+  "Shutdown now."
+  (interactive)
+  (shell-command "sudo shutdown -h now"))
+
+(defun ymacs/restart ()
+  "Reboot now."
+  (interactive)
+  (shell-command "reboot"))
+
+(defun ymacs/open-emacs-init-file ()
+  "Open ~/.emacs.d/init.el."
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+(defun ymacs/open-user-config-file ()
+  "Open ~/.emacs.d/init.el."
+  (interactive)
+  (find-file "~/.ymacs.d/config.el"))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here
