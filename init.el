@@ -26,6 +26,7 @@
   (if *use-exwm*
       (require 'init-exwm))
   (require 'config nil t)
+  (require 'init-edit)
   (require 'init-undo)
   (require 'init-fold)
   (require 'init-lang)
