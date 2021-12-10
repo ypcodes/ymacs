@@ -29,6 +29,7 @@
 (define-key global-map (kbd "<s-return>") #'vterm)
 (define-key global-map (kbd "C-c o t") #'vterm-toggle)
 (define-key global-map (kbd "C-c o p") #'treemacs)
+(define-key global-map (kbd "C-x C-q") #'ymacs/exwm-logout)
 (global-set-key (kbd "<C-return>") (kbd "C-e C-m"))
 (global-set-key (kbd "C-c p f") #'projectile-find-file)
 (global-set-key (kbd "C-c h")  'windmove-left)

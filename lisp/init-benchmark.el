@@ -21,17 +21,8 @@
 
 ;;; Code:
 
-(setq gc-cons-threshold (* 50 1000 1000))
-
 ;; Profile emacs startup
-(setq initial-scratch-message ";; Happy hacking  Emacs!\n")
-
 (setq gc-cons-threshold most-positive-fixnum)
-
-(add-hook 'emacs-startup-hook
-          (lambda ()
-            (setq gc-cons-threshold (expt 2 23))))
-
 ;; Use a hook so the message doesn't get clobbered by other messages.
 (add-hook 'emacs-startup-hook
           (lambda ()

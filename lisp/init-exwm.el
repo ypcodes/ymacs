@@ -1,76 +1,17 @@
 ;;; init-exwm.el -- EXWM config -*-lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
+(defvar exwm--toggle-workspace 0
+  "Previously selected workspace. Used with `exwm/jump-to-last-exwm'.")
 
-(use-package xelb
-  :if (display-graphic-p)
-  :ensure t)
+(defun exwm/jump-to-last-exwm ()
+  "Jump to last window."
+  (interactive)
+  (exwm-workspace-switch exwm--toggle-workspace))
 
-(use-package exwm
-  :ensure t
-  :if (display-graphic-p)
-  :config
-  ;; (define-obsolete-function-alias 'exwm-config-default
-  ;;   #'exwm-config-example "27.1")
-  (setq exwm-workspace-number 5)
-  ;; Make class name the buffer name
-  (add-hook 'exwm-update-class-hook
-            (lambda ()
-              (exwm-workspace-rename-buffer exwm-class-name)))
-
-  (setq exwm-input-global-keys
-        `(
-          ;; 's-r': Reset (to line-mode).
-          ([?\s-r] . exwm-reset)
-          ;; 's-w': Switch workspace.
-          ([?\s-t] . exwm-workspace-switch)
-          ;; 's-d': Launch application.
-          ([?\s-d] . (lambda (command)
-                       (interactive (list (read-shell-command "$ ")))
-                       (start-process-shell-command command nil command)))
-          ([?\s-=] . (lambda ()
-                       (interactive)
-                       (shell-command "pamixer --allow-boost -i 3")))
-          ([?\s--] . (lambda ()
-                       (interactive)
-                       (shell-command "pamixer --allow-boost -d 3")))
-
-          ([?\s-w] . (lambda ()
-                       (interactive)
-                       (start-process-shell-command "Brave-browser" nil "brave-bin")))
-
-          ;; 's-N': Switch to certain workspace.
-          ,@(mapcar (lambda (i)
-                      `(,(kbd (format "s-%d" i)) .
-                        (lambda ()
-                          (interactive)
-                          (exwm-workspace-switch-create ,i))))
-                    (number-sequence 0 9))))
-  (let ((workspace-numbers (number-sequence 0 9))
-        (keys ")!@#$%^&*("))
-    (seq-doseq (num workspace-numbers)
-      (let* ((idx num)
-             (key (aref keys idx)))
-        (exwm-input-set-key (kbd (format "s-%c" key))
-                            `(lambda ()
-                               (interactive)
-                               (exwm-workspace-move-window , num)))))))
-
-  (add-hook 'exwm-manage-finish-hook
-            (lambda () (call-interactively #'exwm-input-release-keyboard)
-              (exwm-layout-hide-mode-line)))
-  (setq exwm-input-simulation-keys
-        '(([?\C-b] . [left])
-          ([?\C-f] . [right])
-          ([?\C-p] . [up])
-          ([?\C-n] . [down])
-          ([?\C-a] . [home])
-          ([?\C-e] . [end])
-          ([?\M-v] . [prior])
-          ([?\C-v] . [next])
-          ([?\C-d] . [delete])
-          ([?\C-k] . [S-end delete])))
-
+(defadvice exwm-workspace-switch
+    (before save-toggle-workspace activate)
+  (setq exwm--toggle-workspace exwm-workspace-current-index))
 
 (defun yeh/exwm-input-line-mode ()
   "Set exwm window to line-mode and show mode line."
@@ -91,43 +32,74 @@
           (yeh/exwm-input-char-mode)
         (yeh/exwm-input-line-mode)))))
 
-(exwm-input-set-key (kbd "s-i") #'yeh/exwm-input-toggle-mode)
+(use-package xelb
+  :ensure t)
 
-(setq exwm-manage-configurations
-      '(((equal exwm-class-name "Brave-browser"
-                workspace 1
-                char-mode t))
-        ((equal exwm-class-name "Google-chrome")
-         char-mode t)
-        ((equal exwm-class-name "phototshop.exe")
-         char-mode t)
-        ((equal exwm-class-name "St")
-         char-mode t)
-        ((equal exwm-class-name "discord")
-         workspace 3)
-        ((equal exwm-class-name "Gpick")
-         floating t
-         floating-mode-line nil
-         width 0.4
-         height 0.5)))
+(use-package exwm
+  :ensure t
+  :init
+  (setq exwm-workspace-number 5)
+  (setq mouse-autoselect-window t
+        focus-follows-mouse t)
+  (setq window-divider-default-right-width 1)
+  :config
+  (require 'exwm-config)
+  (progn
+    (exwm-input-set-key (kbd "<s-tab>")  #'exwm/jump-to-last-exwm)
+    (exwm-input-set-key (kbd "s-w")  #'(lambda ()
+                                         (interactive)
+                                         (start-process-shell-command
+                                          "Brave-browser" nil "brave-bin")))
+    (exwm-input-set-key (kbd "s-d") #'(lambda (command)
+                                        (interactive (list (read-shell-command "Command: ")))
+                                        (start-process-shell-command command nil command)))
+    (exwm-input-set-key (kbd "s-=") #'desktop-environment-volume-increment)
+    (exwm-input-set-key (kbd "s--") #'desktop-environment-volume-decrement)
+    (exwm-input-set-key (kbd "s-i") #'yeh/exwm-input-toggle-mode)
+    (mapcar (lambda (i)
+              (exwm-input-set-key (kbd (format "s-%d" i))
+                                  #'(lambda ()
+                                      (interactive)
+                                      (exwm-workspace-switch-create i))))
+            (number-sequence 0 9))
+    )
 
-(add-hook 'exwm-floating-setup-hook
-          (lambda ()
-            (exwm-layout-hide-mode-line)
-            (setq floating-mode-line nil)))
-;; Make buffer name more meaningful
-(add-hook 'exwm-update-class-hook
-          (lambda ()
-            (exwm-workspace-rename-buffer exwm-class-name))
-          )
+  (add-hook 'exwm-update-class-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-class-name)))
 
-(exwm-enable)
+  (add-hook 'exwm-manage-finish-hook
+            (lambda () (call-interactively #'exwm-input-release-keyboard)
+              (exwm-layout-hide-mode-line)))
+
+  (add-hook 'exwm-floating-setup-hook
+            (lambda ()
+              (setq floating-mode-line nil)))
+  ;; Make buffer name more meaningful
+  (add-hook 'exwm-update-class-hook
+            (lambda () (exwm-workspace-rename-buffer exwm-class-name)))
+  (add-hook 'exwm-update-title-hook
+            (lambda ()
+              (exwm-workspace-rename-buffer exwm-title)))
+  (exwm-enable))
+
 (use-package exwm-systemtray
   :after exwm
   :config
   (exwm-systemtray-enable))
 
+(use-package desktop-environment
+  :ensure t
+  :after exwm
+  :init
+  (setq desktop-environment-screenshot-directory "~/Pictures/screenshot"
+        desktop-environment-update-exwm-global-keys :global)
+  :config
+  (desktop-environment-mode))
 
+(use-package xdg
+  :ensure t
+  :commands (xdg-config-dirs xdg-config-home xdg-desktop-read-file))
 
 (provide 'init-exwm)
 ;;; init-exwm.el ends here

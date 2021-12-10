@@ -40,16 +40,27 @@
   (setq make-backup-file nil)
   (setq browse-url-handlers '(("\\`file:" . browse-url-default-browser)))
   (setq-default dired-dwim-target t)
-  (setq-default cursor-type 'box)
+  (setq-default cursor-type 'bar)
   (setq-default indent-tabs-mode nil)
+  (setq-default tab-width 4)
+  (setq scroll-step            1
+        scroll-conservatively  10000)
   (server-start)
+  (setq initial-major-mode 'org-mode
+        initial-scratch-message "Welcome, happy hacking ymacs!\n")
   :config
   (display-time-mode)
   (display-battery-mode)
+  (size-indication-mode)
+  (column-number-mode)
+
   (ido-mode)
+
   (delete-selection-mode 1)
+
   (set-frame-parameter nil 'alpha 85)
   (add-to-list 'default-frame-alist '(alpha . 85))
+
   (add-hook 'emacs-startup-hook
             (lambda ()
               (setq visible-bell nil)))

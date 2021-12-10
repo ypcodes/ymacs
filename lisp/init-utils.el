@@ -53,6 +53,14 @@
   (interactive)
   (shell-command "reboot"))
 
+(defun ymacs/exwm-logout ()
+  "Logout from exwm."
+  (interactive)
+  (bookmark-save)
+  (recentf-save-list)
+  (save-some-buffers)
+  (start-process-shell-command "logout" nil "pkill xinit"))
+
 (defun ymacs/open-emacs-init-file ()
   "Open ~/.emacs.d/init.el."
   (interactive)
