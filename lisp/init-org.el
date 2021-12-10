@@ -36,9 +36,10 @@
         org-html-validation-link nil
         org-export-kill-product-buffer-when-displayed t
         org-tags-column 5
-        org-directory "~/org/"        )
+        org-directory "~/org/")
   :hook ((org-mode . org-indent-mode)
-         (org-mode . display-fill-column-indicator-mode))
+         ;; (org-mode . display-fill-column-indicator-mode)
+         )
   :config
   (define-key global-map (kbd "C-c l") 'org-store-link)
   (define-key global-map (kbd "C-c a") 'org-agenda)
@@ -80,11 +81,16 @@
   :hook
   (org-mode . toc-org-mode))
 
-(use-package org-bullets
+(use-package org-superstar
   :ensure t
   :after org
-  :hook (org-mode . org-bullets-mode)
-  )
+  :hook (org-mode . org-superstar-mode)
+  :config
+  (setq org-superstar-leading-bullet ?\s
+        org-superstar-leading-fallback ?\s
+        org-hide-leading-stars nil
+        ;; org-superstar-todo-bullet-alist '(("TODO" . 9744) ("[ ]"  . 9744) ("DONE" . 9745) ("[X]"  . 9745))
+        ))
 
 (use-package org-pdftools
   :ensure t
@@ -96,7 +102,7 @@
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
-  (setq org-fancy-priorities-list '("⚡" "⬆" "⬇" "☕")))
+  (setq org-fancy-priorities-list '("⚑" "⬆" "■")))
 
 (use-package org-books
   :ensure t

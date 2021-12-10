@@ -44,8 +44,6 @@
   (require 'init-media)
   (require 'init-keybindings))
 
-(alert "Emacs Launch Success" :title "Emacs")
-
 (provide 'init)
 ;; Local Variables:
 ;; coding: utf-8

@@ -61,8 +61,7 @@
                                   #'(lambda ()
                                       (interactive)
                                       (exwm-workspace-switch-create i))))
-            (number-sequence 0 9))
-    )
+            (number-sequence 0 9)))
 
   (add-hook 'exwm-update-class-hook
             (lambda ()

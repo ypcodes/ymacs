@@ -1,9 +1,11 @@
 #+TITLE: Yeh Peng's personal Emacs config
 
-* Table of Contents :toc:noexport:
+* Table of Contents :toc:quote:
+#+BEGIN_QUOTE
 - [[#intro][Intro]]
 - [[#install][Install]]
 - [[#adding-own-customization][Adding own customization]]
+#+END_QUOTE
 
 * Intro
 This is my emacs configuration.
