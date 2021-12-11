@@ -28,5 +28,38 @@
   :ensure t
   :hook ((prog-mode . projectile-mode)))
 
+(use-package magit
+  :ensure t)
+
+(use-package treemacs
+  :ensure t
+  :config
+  (treemacs-follow-mode)
+  (treemacs-fringe-indicator-mode)
+  (treemacs-git-mode 'deferred)
+  (treemacs-filewatch-mode))
+
+(use-package treemacs-magit
+  :ensure t
+  :after (treemacs magit))
+
+(use-package treemacs-all-the-icons
+  :ensure t
+  :after (treemacs)
+  :config
+  (treemacs-load-all-the-icons-with-workaround-font "Hermit"))
+
+(use-package treemacs-icons-dired
+  :ensure t
+  :after dired
+  :hook (dired-mode . treemacs-icons-dired-mode))
+
+(use-package treemacs-projectile
+  :ensure t
+  :config
+  )
+
+
+
 (provide 'init-project)
 ;;; init-project.el ends here

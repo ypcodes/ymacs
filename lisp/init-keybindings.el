@@ -39,11 +39,8 @@
 
 (if (not *use-isearch*)
     (global-set-key (kbd "C-s") #'swiper-isearch))
-
 ;; escape cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-(define-key vterm-mode-map (kbd "<C-backspace>") (kbd "C-w"))
 
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here

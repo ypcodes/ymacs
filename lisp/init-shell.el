@@ -1,4 +1,4 @@
-;;; init-edit.el --- editor config                   -*- lexical-binding: t; -*-
+;;; init-shell.el --- SHell configuration            -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Yeh Peng
 
@@ -24,18 +24,27 @@
 
 ;;; Code:
 
-(use-package god-mode
+(use-package vterm
   :ensure t
-  :bind (("<escape>" . god-local-mode))
-  :hook (god-local-mode . (lambda () (setq-default cursor-type 'box)))
+  :when (bound-and-true-p module-file-suffix)
+  :commands vterm-mode
+  :init
+  (when noninteractive
+    (advice-add #'vterm-module-compile :override #'ignore)
+    (provide 'vterm-module))
   :config
-  (define-key global-map (kbd "<escape>") #'god-local-mode)
-  (define-key god-local-mode-map (kbd ".") #'repeat)
-  (define-key god-local-mode-map (kbd "i") #'god-local-mode)
-  (defun ymacs/god-mode-update-cursor-type ()
-    (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))
-  (add-hook 'post-command-hook #'ymacs/god-mode-update-cursor-type)
-  )
+  (setq vterm-kill-buffer-on-exit t)
+  (setq vterm-max-scrollback 6000)
+  (add-hook 'vterm-mode-hook #'(lambda ()
+                                 (setq confirm-kill-processes nil)
+                                 (setq hscroll-margin 0)))
 
-(provide 'init-edit)
-;;; init-edit.el ends here
+  (define-key vterm-mode-map (kbd "<C-Backspace>") (kbd "C-w"))
+  (define-key vterm-mode-map (kbd "<C-c>") #'vterm-send-C-c))
+
+(use-package vterm-toggle
+  :ensure t
+  :after vterm)
+
+(provide 'init-shell)
+;;; init-shell.el ends here

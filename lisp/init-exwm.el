@@ -42,6 +42,7 @@
   (setq mouse-autoselect-window t
         focus-follows-mouse t)
   (setq window-divider-default-right-width 1)
+  (setq exwm-workspace-index-map (lambda (i) (number-to-string (1+ i)))) ;start at index 1
   :config
   (require 'exwm-config)
   (progn

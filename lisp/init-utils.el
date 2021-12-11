@@ -51,7 +51,7 @@
 (defun ymacs/restart ()
   "Reboot now."
   (interactive)
-  (shell-command "reboot"))
+  (shell-command "sudo reboot"))
 
 (defun ymacs/exwm-logout ()
   "Logout from exwm."

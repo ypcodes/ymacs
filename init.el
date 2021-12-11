@@ -26,12 +26,12 @@
   (if *use-exwm*
       (require 'init-exwm))
   (require 'config nil t)
-  (require 'init-edit)
   (require 'init-undo)
   (require 'init-fold)
   (require 'init-lang)
   (require 'init-ui)
   (require 'init-utils)
+  (require 'init-shell)
   (if *use-isearch*
       (require 'init-isearch)
     (require 'init-swiper))
