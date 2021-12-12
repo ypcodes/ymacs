@@ -44,13 +44,66 @@
   :after vterm)
 
 (use-package eshell
-  :config
-  )
+  :init
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (add-to-list 'eshell-visual-commands "ssh")
+              (add-to-list 'eshell-visual-commands "tail")
+              (add-to-list 'eshell-visual-commands "top")))
+  (setq eshell-scroll-to-bottom-on-input 'all
+        eshell-error-if-no-glob t
+        eshell-hist-ignoredups t
+        eshell-save-history-on-exit t
+        eshell-prefer-lisp-functions nil
+        eshell-destroy-buffer-when-process-dies t)
+  (add-hook 'eshell-mode-hook (lambda ()
+                                (eshell/alias "ff" "find-file $1")
+                                (eshell/alias "emacs" "find-file $1")
+                                (eshell/alias "ee" "find-file-other-window $1")
+
+                                (eshell/alias "gd" "magit-diff-unstaged")
+                                (eshell/alias "gds" "magit-diff-staged")
+                                (eshell/alias "d" "dired $1")
+
+                                ;; The 'ls' executable requires the Gnu version on the Mac
+                                (let ((ls (if (file-exists-p "/usr/local/bin/gls")
+                                              "/usr/local/bin/gls"
+                                            "/bin/ls")))
+                                  (eshell/alias "ll" (concat ls " -AlohG --color=always")))))
+  (defun eshell/gst (&rest args)
+    (magit-status (pop args) nil)
+    (eshell/echo))
+  (defun eshell/clear ()
+    "Clear the eshell buffer."
+    (interactive)
+    (let ((inhibit-read-only t))
+      (erase-buffer)
+      (eshell-send-input)))
+  (defun ha/eshell-quit-or-delete-char (arg)
+    (interactive "p")
+    (if (and (eolp) (looking-back eshell-prompt-regexp))
+        (progn
+          (eshell-life-is-too-much)     ; Why not? (eshell/exit)
+          (ignore-errors
+            (delete-window)))
+      (delete-forward-char arg)))
+  (add-hook 'eshell-mode-hook
+            (lambda ()
+              (bind-keys :map eshell-mode-map
+                         ("C-d" . ha/eshell-quit-or-delete-char)
+                         ("C-l" . eshell/clear)))))
 
 (use-package eshell-git-prompt
   :ensure t
   :after eshell
   :init (eshell-git-prompt-use-theme 'powerline))
+
+(use-package eshell-syntax-highlighting
+  :after eshell-mode
+  :ensure t ;; Install if not already installed.
+  :config
+  ;; Enable in all Eshell buffers.
+  (add-hook 'eshell-mode-hook 'eshell-syntax-highlighting-mode))
 
 (provide 'init-shell)
 ;;; init-shell.el ends here
