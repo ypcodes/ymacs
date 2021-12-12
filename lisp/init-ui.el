@@ -3,8 +3,11 @@
 
 ;;; Code:
 
+(require 'use-package)
+
 (use-package doom-themes
   :ensure t
+  :if (display-graphic-p)
   :config
   (if emacs-theme
       (load-theme emacs-theme t)
@@ -13,6 +16,7 @@
 ;; make your theme like emacs
 (use-package theme-magic
   :after (doom-themes)
+  :if (display-graphic-p)
   :ensure t
   :config
   (theme-magic-export-theme-mode))
@@ -34,6 +38,7 @@
 ;; tabbar
 (use-package centaur-tabs
   :ensure t
+  :if (display-graphic-p)
   :config
   (setq centaur-tabs-style "wave")
   (centaur-tabs-mode t))
@@ -60,11 +65,6 @@
   :config
   (ido-grid-mode))
 
-;; highlight
-(use-package symbol-overlay
-  :ensure t
-  :hook (prog-mode . symbol-overlay-mode))
-
 (use-package rainbow-delimiters
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -77,6 +77,14 @@
   :ensure t
   :config
   (winum-mode))
+
+(use-package dtrt-indent
+  :ensure t
+  :hook (prog-mode .
+                   (lambda ()
+                     (modify-syntax-entry ?_ "w")
+                     (dtrt-indent-mode)
+                     (dtrt-indent-adapt))))
 
 (provide 'init-ui)
 

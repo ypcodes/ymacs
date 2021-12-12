@@ -23,7 +23,7 @@
 ;; complete config
 
 ;;; Code:
-
+(require 'use-package)
 ;; company mode
 (use-package company
   :ensure t
@@ -43,8 +43,10 @@
   )
 
 (use-package doom-snippets
-  :load-path "~/.emacs.d/elpa/doom-snippets"
-  :after yasnippet)
+  :after yasnippet
+  :straight (doom-snippets :type git :host github
+                           :repo "hlissner/doom-snippets"
+                           :files ("*.el" "*")))
 
 ;; lsp
 (use-package lsp-mode

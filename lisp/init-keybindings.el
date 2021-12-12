@@ -22,23 +22,24 @@
 ;; define keys
 
 ;;; Code:
+(require 'init-shell)
 
 (define-key treemacs-mode-map [mouse-1] #'treemacs-single-click-expand-action)
 (define-key global-map (kbd "C-c c f") #'ymacs/open-emacs-init-file)
 (define-key global-map (kbd "C-c c c") #'ymacs/open-user-config-file)
-(define-key global-map (kbd "<s-return>") #'vterm)
+(define-key global-map (kbd "<s-return>") #'eshell)
 (define-key global-map (kbd "C-c o t") #'vterm-toggle)
 (define-key global-map (kbd "C-c o p") #'treemacs)
-(define-key global-map (kbd "C-x C-q") #'ymacs/exwm-logout)
+(define-key global-map (kbd "C-c p f") #'projectile-find-file)
+(define-key global-map [remap save-buffers-kill-terminal] #'ymacs/exwm-logout)
 (global-set-key (kbd "<C-return>") (kbd "C-e C-m"))
-(global-set-key (kbd "C-c p f") #'projectile-find-file)
 (global-set-key (kbd "C-c h")  'windmove-left)
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c k")    'windmove-up)
 (global-set-key (kbd "C-c k")  'windmove-down)
 
 (if (not *use-isearch*)
-    (global-set-key (kbd "C-s") #'swiper-isearch))
+    (global-set-key [remap isearch-forward-regexp] #'swiper-isearch))
 ;; escape cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 

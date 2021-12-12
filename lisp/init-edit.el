@@ -1,4 +1,4 @@
-;;; init-shell.el --- SHell configuration            -*- lexical-binding: t; -*-
+;;; init-edit.el --- Edit config                     -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2021  Yeh Peng
 
@@ -24,33 +24,18 @@
 
 ;;; Code:
 
-(use-package vterm
+(use-package multiple-cursors
   :ensure t
-  :when (bound-and-true-p module-file-suffix)
-  :commands vterm-mode
-  :init
-  (when noninteractive
-    (advice-add #'vterm-module-compile :override #'ignore)
-    (provide 'vterm-module))
+  :bind ("M-n" . mc/mark-next-like-this-symbol)
+  :bind ("M-p" . mc/mark-previous-like-this-symbol)
+  :bind ("C-M-n" . mc/mark-next-like-this)
+  :bind ("C-M-p" . mc/mark-previous-like-this))
+
+;; goto-line
+(use-package goto-line-preview
+  :ensure t
   :config
-  (setq vterm-kill-buffer-on-exit t)
-  (setq vterm-max-scrollback 6000)
-  (add-hook 'vterm-mode-hook #'(lambda ()
-                                 (setq confirm-kill-processes nil)
-                                 (setq hscroll-margin 0))))
+  (global-set-key [remap goto-line] 'goto-line-preview))
 
-(use-package vterm-toggle
-  :ensure t
-  :after vterm)
-
-(use-package eshell
-  :config
-  )
-
-(use-package eshell-git-prompt
-  :ensure t
-  :after eshell
-  :init (eshell-git-prompt-use-theme 'powerline))
-
-(provide 'init-shell)
-;;; init-shell.el ends here
+(provide 'init-edit)
+;;; init-edit.el ends here

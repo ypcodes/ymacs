@@ -2,6 +2,12 @@
 ;;; Commentary:
 ;;; Code:
 
+(defadvice find-file (around find-files activate)
+  "Also find all files within a list of files. This even works recursively."
+  (if (listp filename)
+      (loop for f in filename do (find-file f wildcards))
+    ad-do-it))
+
 ;; Delete current editing file
 (defun delete-this-file ()
   "Delete current editing file and close buffer."
@@ -59,7 +65,7 @@
   (bookmark-save)
   (recentf-save-list)
   (save-some-buffers)
-  (start-process-shell-command "logout" nil "pkill xinit"))
+  (save-buffers-kill-terminal))
 
 (defun ymacs/open-emacs-init-file ()
   "Open ~/.emacs.d/init.el."

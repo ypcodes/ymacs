@@ -1,6 +1,9 @@
 ;;; init-exwm.el -- EXWM config -*-lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
+
+(require 'use-package)
+
 (defvar exwm--toggle-workspace 0
   "Previously selected workspace. Used with `exwm/jump-to-last-exwm'.")
 
@@ -33,10 +36,12 @@
         (yeh/exwm-input-line-mode)))))
 
 (use-package xelb
-  :ensure t)
+  :ensure t
+  :if (display-graphic-p))
 
 (use-package exwm
   :ensure t
+  :if (display-graphic-p)
   :init
   (setq exwm-workspace-number 5)
   (setq mouse-autoselect-window t
@@ -84,12 +89,14 @@
   (exwm-enable))
 
 (use-package exwm-systemtray
+  :if (display-graphic-p)
   :after exwm
   :config
   (exwm-systemtray-enable))
 
 (use-package desktop-environment
   :ensure t
+  :if (display-graphic-p)
   :after exwm
   :init
   (setq desktop-environment-screenshot-directory "~/Pictures/screenshot"
@@ -99,6 +106,7 @@
 
 (use-package xdg
   :ensure t
+  :if (display-graphic-p)
   :commands (xdg-config-dirs xdg-config-home xdg-desktop-read-file))
 
 (provide 'init-exwm)

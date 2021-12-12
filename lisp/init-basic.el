@@ -48,6 +48,12 @@
   (server-start)
   (setq initial-major-mode 'org-mode
         initial-scratch-message "Welcome, happy hacking ymacs!\n")
+  :hook ((prog-mode . linum-mode)
+         (prog-mode . electric-pair-mode)
+         (prog-mode . prettify-symbols-mode)
+         (prog-mode . hl-line-mode)
+         (find-file . auto-insert)
+         (after-save . delete-trailing-whitespace))
   :config
   (display-time-mode)
   (display-battery-mode)
@@ -60,15 +66,9 @@
 
   (set-frame-parameter nil 'alpha 85)
   (add-to-list 'default-frame-alist '(alpha . 85))
-
   (add-hook 'emacs-startup-hook
             (lambda ()
-              (setq visible-bell nil)))
-  (add-hook 'after-save-hook 'delete-trailing-whitespace)
-  (add-hook 'find-file-hook 'auto-insert)
-  (add-hook 'prog-mode-hook 'hl-line-mode)
-  (add-hook 'prog-mode-hook 'electric-pair-mode)
-  (add-hook 'prog-mode-hook 'prettify-symbols-mode))
+              (setq visible-bell nil))))
 
 (use-package recentf
   :config

@@ -38,7 +38,7 @@
         org-tags-column 5
         org-directory "~/org/")
   :hook ((org-mode . org-indent-mode)
-         ;; (org-mode . display-fill-column-indicator-mode)
+         (org-mode . display-fill-column-indicator-mode)
          )
   :config
   (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -66,7 +66,8 @@
      (screen . nil)
      (shell . t)
      (sql . t)
-     (sqlite . t))))
+     (sqlite . t)))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.5)))
 
 (use-package org-tempo
   :after org)
@@ -89,7 +90,7 @@
   (setq org-superstar-leading-bullet ?\s
         org-superstar-leading-fallback ?\s
         org-hide-leading-stars nil
-        ;; org-superstar-todo-bullet-alist '(("TODO" . 9744) ("[ ]"  . 9744) ("DONE" . 9745) ("[X]"  . 9745))
+        org-superstar-todo-bullet-alist '(("TODO" . 9744) ("[ ]"  . 9744) ("DONE" . 9745) ("[X]"  . 9745))
         ))
 
 (use-package org-pdftools
