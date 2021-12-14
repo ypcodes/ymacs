@@ -136,5 +136,14 @@
   (eshell/alias "up" "eshell-up $1")
   (eshell/alias "pk" "eshell-up-peek $1"))
 
+;; popup eshell
+(use-package pop-eshell-mode
+  :straight (pop-eshell-mode :type git :host github :repo "stanhe/pop-eshell" :files ("*.el"))
+  :after eshell
+  :config
+  (setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
+  (pop-eshell-mode 1)
+  (define-key global-map (kbd "C-c o e") 'eshell-pop-toggle))
+
 (provide 'init-shell)
 ;;; init-shell.el ends here
