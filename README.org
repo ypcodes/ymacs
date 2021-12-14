@@ -8,7 +8,9 @@
 #+END_QUOTE
 
 * Intro
-This is my emacs configuration.
+This is my emacs configuration. I have use [[https://github.com/hlissner/doom-emacs][Doom Emacs]] a long time, but
+recently I am a little dislike it, so I am going to roll my own
+configuration from scratch.
 
 * Install
 First, backup emacs config files:
@@ -20,6 +22,7 @@ Then, clone this repository:
 #+begin_src shell
   git clone --depth=1 https://github.com/ypcodes/ymacs.git ~/.emacs.d
 #+end_src
+
 * Adding your own customization
 User's configuration should be located in ~$HOME/.ymacs.d/config.el~,
 which should looks like this:

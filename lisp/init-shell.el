@@ -24,6 +24,32 @@
 
 ;;; Code:
 
+(require 'esh-mode)
+
+(defun eshell/mkdir-and-cd (dir)
+  "Create a directory then cd into it."
+  (make-directory dir t)
+  (eshell/cd dir))
+
+(defun eshell/gst (&rest args)
+  (magit-status (pop args) nil)
+  (eshell/echo))
+
+(defun +eshell/clear ()
+  "Clear the eshell buffer."
+  (interactive)
+  (eshell/clear-scrollback)
+  (eshell-emit-prompt))
+
+(defun ha/eshell-quit-or-delete-char (arg)
+  (interactive "p")
+  (if (and (eolp) (looking-back eshell-prompt-regexp))
+      (progn
+        (eshell-life-is-too-much)       ; Why not? (eshell/exit)
+        (ignore-errors
+          (delete-window)))
+    (delete-forward-char arg)))
+
 (use-package vterm
   :ensure t
   :when (bound-and-true-p module-file-suffix)
@@ -45,17 +71,23 @@
 
 (use-package eshell
   :init
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (add-to-list 'eshell-visual-commands "ssh")
-              (add-to-list 'eshell-visual-commands "tail")
-              (add-to-list 'eshell-visual-commands "top")))
   (setq eshell-scroll-to-bottom-on-input 'all
         eshell-error-if-no-glob t
         eshell-hist-ignoredups t
         eshell-save-history-on-exit t
         eshell-prefer-lisp-functions nil
         eshell-destroy-buffer-when-process-dies t)
+  (add-hook 'eshell-mode-hook
+            '(lambda ()
+              (add-to-list 'eshell-visual-commands "ssh")
+              (add-to-list 'eshell-visual-commands "tail")
+              (add-to-list 'eshell-visual-commands "top")))
+  (add-hook 'eshell-mode-hook
+            '(lambda ()
+               (bind-keys :map eshell-mode-map
+                          ("C-d" . ha/eshell-quit-or-delete-char)
+                          ("C-l" . +eshell/clear))))
+
   (add-hook 'eshell-mode-hook (lambda ()
                                 (eshell/alias "ff" "find-file $1")
                                 (eshell/alias "emacs" "find-file $1")
@@ -64,34 +96,13 @@
                                 (eshell/alias "gd" "magit-diff-unstaged")
                                 (eshell/alias "gds" "magit-diff-staged")
                                 (eshell/alias "d" "dired $1")
+                                (eshell/alias "c" "eshell/clear-scrollback")
 
                                 ;; The 'ls' executable requires the Gnu version on the Mac
                                 (let ((ls (if (file-exists-p "/usr/local/bin/gls")
                                               "/usr/local/bin/gls"
                                             "/bin/ls")))
-                                  (eshell/alias "ll" (concat ls " -AlohG --color=always")))))
-  (defun eshell/gst (&rest args)
-    (magit-status (pop args) nil)
-    (eshell/echo))
-  (defun eshell/clear ()
-    "Clear the eshell buffer."
-    (interactive)
-    (let ((inhibit-read-only t))
-      (erase-buffer)
-      (eshell-send-input)))
-  (defun ha/eshell-quit-or-delete-char (arg)
-    (interactive "p")
-    (if (and (eolp) (looking-back eshell-prompt-regexp))
-        (progn
-          (eshell-life-is-too-much)     ; Why not? (eshell/exit)
-          (ignore-errors
-            (delete-window)))
-      (delete-forward-char arg)))
-  (add-hook 'eshell-mode-hook
-            (lambda ()
-              (bind-keys :map eshell-mode-map
-                         ("C-d" . ha/eshell-quit-or-delete-char)
-                         ("C-l" . eshell/clear)))))
+                                  (eshell/alias "ll" (concat ls " -AlohG --color=always"))))))
 
 (use-package eshell-git-prompt
   :ensure t
@@ -99,11 +110,23 @@
   :init (eshell-git-prompt-use-theme 'powerline))
 
 (use-package eshell-syntax-highlighting
-  :after eshell-mode
+  :after eshell
   :ensure t ;; Install if not already installed.
   :config
   ;; Enable in all Eshell buffers.
   (add-hook 'eshell-mode-hook 'eshell-syntax-highlighting-mode))
+
+(use-package eshell-did-you-mean
+  :ensure t
+  :after eshell
+  :config
+  (eshell-did-you-mean-setup)
+  ;; HACK There is a known issue with `eshell-did-you-mean' where it does not
+  ;;      work on first invocation, so we invoke it once manually by setting the
+  ;;      last command and then calling the output filter.
+  (setq eshell-last-command-name "catt")
+  (eshell-did-you-mean-output-filter "catt: command not found"))
+
 
 (provide 'init-shell)
 ;;; init-shell.el ends here

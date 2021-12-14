@@ -39,6 +39,8 @@
         org-directory "~/org/")
   :hook ((org-mode . org-indent-mode)
          (org-mode . display-fill-column-indicator-mode)
+         (org-mode . hl-line-mode)
+         (org-mode . yas-minor-mode)
          )
   :config
   (define-key global-map (kbd "C-c l") 'org-store-link)
@@ -67,7 +69,7 @@
      (shell . t)
      (sql . t)
      (sqlite . t)))
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.5)))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 3)))
 
 (use-package org-tempo
   :after org)
@@ -115,6 +117,20 @@
   :ensure t
   :after (org)
   :hook (org-mode . literate-calc-minor-mode))
+
+(use-package ox-pandoc
+  :ensure t
+  :after org
+  :init
+  ;; default options for all output formats
+  (setq org-pandoc-options '((standalone . t)))
+  ;; cancel above settings only for 'docx' format
+  (setq org-pandoc-options-for-docx '((standalone . nil)))
+  ;; special settings for beamer-pdf and latex-pdf exporters
+  (setq org-pandoc-options-for-beamer-pdf '((pdf-engine . "xelatex")))
+  (setq org-pandoc-options-for-latex-pdf '((pdf-engine . "xelatex")))
+  ;; special extensions for markdown_github output
+  (setq org-pandoc-format-extensions '(markdown_github+pipe_tables+raw_html)))
 
 (provide 'init-org)
 ;;; init-org.el ends here

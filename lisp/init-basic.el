@@ -47,7 +47,7 @@
         scroll-conservatively  10000)
   (server-start)
   (setq initial-major-mode 'org-mode
-        initial-scratch-message "Welcome, happy hacking ymacs!\n")
+        initial-scratch-message "Welcome, happy hacking Ymacs!\n")
   :hook ((prog-mode . linum-mode)
          (prog-mode . electric-pair-mode)
          (prog-mode . prettify-symbols-mode)
