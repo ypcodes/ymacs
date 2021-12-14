@@ -79,9 +79,9 @@
         eshell-destroy-buffer-when-process-dies t)
   (add-hook 'eshell-mode-hook
             '(lambda ()
-              (add-to-list 'eshell-visual-commands "ssh")
-              (add-to-list 'eshell-visual-commands "tail")
-              (add-to-list 'eshell-visual-commands "top")))
+               (add-to-list 'eshell-visual-commands "ssh")
+               (add-to-list 'eshell-visual-commands "tail")
+               (add-to-list 'eshell-visual-commands "top")))
   (add-hook 'eshell-mode-hook
             '(lambda ()
                (bind-keys :map eshell-mode-map
@@ -144,6 +144,16 @@
   (setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
   (pop-eshell-mode 1)
   (define-key global-map (kbd "C-c o e") 'eshell-pop-toggle))
+
+(use-package esh-autosuggest
+  :hook (eshell-mode . esh-autosuggest-mode)
+  :hook (eshell-mode-hook . esh-autosuggest-mode)
+  :ensure t)
+
+(use-package multi-eshell
+  :straight (multi-eshell :type git :host github
+                          :repo "emacsmirror/multi-eshell")
+  :after eshell)
 
 (provide 'init-shell)
 ;;; init-shell.el ends here
