@@ -26,8 +26,8 @@
 
 (require 'esh-mode)
 
-(defun eshell/mkdir-and-cd (dir)
-  "Create a directory then cd into it."
+(defun eshell/mkcd (dir)
+  "Create DIR then cd into it."
   (make-directory dir t)
   (eshell/cd dir))
 
@@ -127,6 +127,14 @@
   (setq eshell-last-command-name "catt")
   (eshell-did-you-mean-output-filter "catt: command not found"))
 
+;; quickly cd to parent dir
+(use-package eshell-up
+  :ensure t
+  :init (setq eshell-up-print-parent-dir t)
+  :after eshell
+  :config
+  (eshell/alias "up" "eshell-up $1")
+  (eshell/alias "pk" "eshell-up-peek $1"))
 
 (provide 'init-shell)
 ;;; init-shell.el ends here
