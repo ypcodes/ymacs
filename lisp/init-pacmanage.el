@@ -43,10 +43,7 @@
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
-(straight-use-package '(:package "use-package"
-                      :host nil
-                      :type "git"
-                      :host "https://github.com.cnpmjs.org/jwiegley/use-package.git"))
+(straight-use-package 'use-package)
 
 (provide 'init-pacmanage)
 ;;; init-pacmanage.el ends here

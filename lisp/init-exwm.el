@@ -47,9 +47,10 @@
   (setq mouse-autoselect-window t
         focus-follows-mouse t)
   (setq window-divider-default-right-width 1)
-  (setq exwm-workspace-index-map (lambda (i) (number-to-string (1+ i)))) ;start at index 1
   :config
   (require 'exwm-config)
+  (setq exwm-workspace-index-map
+        (lambda (index) (number-to-string (1+ index))))
   (progn
     (exwm-input-set-key (kbd "<s-tab>")  #'exwm/jump-to-last-exwm)
     (exwm-input-set-key (kbd "s-w")  #'(lambda ()
@@ -66,8 +67,8 @@
               (exwm-input-set-key (kbd (format "s-%d" i))
                                   #'(lambda ()
                                       (interactive)
-                                      (exwm-workspace-switch-create i))))
-            (number-sequence 0 9)))
+                                      (exwm-workspace-switch-create (1- i)))))
+            (number-sequence 1 9)))
 
   (add-hook 'exwm-update-class-hook
             (lambda ()
