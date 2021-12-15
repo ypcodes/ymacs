@@ -59,11 +59,8 @@
   (display-battery-mode)
   (size-indication-mode)
   (column-number-mode)
-
   (ido-mode)
-
   (delete-selection-mode 1)
-
   (set-frame-parameter nil 'alpha 85)
   (add-to-list 'default-frame-alist '(alpha . 85))
   (add-hook 'emacs-startup-hook
