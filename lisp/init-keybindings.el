@@ -38,8 +38,7 @@
 (global-set-key (kbd "C-c k")    'windmove-up)
 (global-set-key (kbd "C-c k")  'windmove-down)
 
-(if (not *use-isearch*)
-    (global-set-key [remap isearch-forward-regexp] #'swiper-isearch))
+;; (global-set-key [remap isearch-forward-regexp] #'swiper-isearch)
 ;; escape cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
@@ -48,17 +47,32 @@
 (use-package evil
   :straight (evil :type git :host github :repo "emacs-evil/evil")
   :init
-  (defalias 'evil-insert-state 'evil-emacs-state)
   (setq-default evil-want-keybinding nil)
+  (setq evil-emacs-state-cursor 'bar)
   :bind (:map evil-normal-state-map
-              ("/" . swiper-isearch))
+              ("/" . swiper-isearch)
+              ("K" . helpful-at-point))
   :config
-  (evil-mode)
+  (defalias 'evil-insert-state 'evil-emacs-state)
+  (evil-set-leader 'normal (kbd "SPC"))
   (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
-  (setq evil-emacs-state-cursor 'bar))
+  (evil-define-key 'normal 'global (kbd "<leader>bk") 'kill-this-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader>bb") 'counsel-switch-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader>fs") 'save-buffer)
+  (evil-define-key 'normal 'global (kbd "<leader>ff") 'counsel-find-file)
+  (evil-define-key 'normal 'global (kbd "<leader>fr") 'recentf-open-more-files)
+  (evil-define-key 'normal 'global (kbd "<leader>qq") 'ymacs/exwm-logout)
+  (evil-define-key 'normal 'global (kbd "<leader>:") 'counsel-M-x)
+  (evil-define-key 'normal 'global (kbd "<leader> SPC") 'counsel-projectile-find-file)
+  (evil-define-key 'normal 'global (kbd "<leader>ot") 'vterm-toggle)
+  (evil-define-key 'normal 'global (kbd "<leader>oe") 'eshell-pop-toggle)
+  (evil-define-key 'normal 'global (kbd "<leader>op") 'treemacs)
+  (evil-mode))
 
 (use-package evil-collection
-  :straight (evil-collection :type git :host github :repo "emacs-evil/evil-collection"))
+  :straight (evil-collection :type git :host github :repo "emacs-evil/evil-collection")
+  :config
+  (evil-collection-init))
 
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here

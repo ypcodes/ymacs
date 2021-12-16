@@ -68,8 +68,7 @@
               (setq visible-bell nil))))
 
 (use-package recentf
-  :config
-  (recentf-mode 1)
+  :config (recentf-mode 1)
   (global-set-key (kbd "C-x C-r") 'recentf-open-files))
 
 (use-package better-defaults

@@ -16,7 +16,6 @@
 (defvar emacs-theme nil "What Emacs theme do you use.")
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defconst *use-exwm* t)
-(defconst *use-isearch* nil)
 
 (eval-when-compile
   (require 'site-gentoo)
@@ -33,9 +32,6 @@
   (require 'init-ui)
   (require 'init-utils)
   (require 'init-shell)
-  (if *use-isearch*
-      (require 'init-isearch)
-    (require 'init-swiper))
   (require 'init-project)
   (require 'init-company)
   (require 'init-cc)

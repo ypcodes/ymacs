@@ -28,6 +28,9 @@
   :ensure t
   :hook ((prog-mode . projectile-mode)))
 
+(use-package counsel-projectile
+  :ensure t)
+
 (use-package magit
   :ensure t)
 
