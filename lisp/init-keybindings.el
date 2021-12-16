@@ -43,5 +43,22 @@
 ;; escape cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+
+;; evil
+(use-package evil
+  :straight (evil :type git :host github :repo "emacs-evil/evil")
+  :init
+  (defalias 'evil-insert-state 'evil-emacs-state)
+  (setq-default evil-want-keybinding nil)
+  :bind (:map evil-normal-state-map
+              ("/" . swiper-isearch))
+  :config
+  (evil-mode)
+  (define-key evil-emacs-state-map (kbd "<escape>") 'evil-normal-state)
+  (setq evil-emacs-state-cursor 'bar))
+
+(use-package evil-collection
+  :straight (evil-collection :type git :host github :repo "emacs-evil/evil-collection"))
+
 (provide 'init-keybindings)
 ;;; init-keybindings.el ends here
