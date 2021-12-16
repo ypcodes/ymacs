@@ -63,6 +63,7 @@
   (evil-define-key 'normal 'global (kbd "<leader>fr") 'recentf-open-more-files)
   (evil-define-key 'normal 'global (kbd "<leader>qq") 'ymacs/exwm-logout)
   (evil-define-key 'normal 'global (kbd "<leader>:") 'counsel-M-x)
+  (evil-define-key 'normal 'global (kbd "<leader>;") 'eval-expression)
   (evil-define-key 'normal 'global (kbd "<leader> SPC") 'counsel-projectile-find-file)
   (evil-define-key 'normal 'global (kbd "<leader>ot") 'vterm-toggle)
   (evil-define-key 'normal 'global (kbd "<leader>oe") 'eshell-pop-toggle)
