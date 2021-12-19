@@ -5,7 +5,7 @@
 (defadvice find-file (around find-files activate)
   "Also find all files within a list of files. This even works recursively."
   (if (listp filename)
-      (loop for f in filename do (find-file f wildcards))
+      (cl-loop for f in filename do (find-file f wildcards))
     ad-do-it))
 
 ;; Delete current editing file
