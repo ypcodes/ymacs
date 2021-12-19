@@ -32,7 +32,6 @@
   (setq rime-posframe-properties
         (list :background-color "#333333"
               :foreground-color "#dcdcccx"
-              :font "WenQuanYi Micro Hei Mono-15"
               :internal-border-width 10))
   (setq rime-show-candidate 'minibuffer)
   (setq rime-inline-ascii-trigger 'shift-l)
@@ -59,8 +58,7 @@
       (let ((msg (langtool-details-error-message overlays)))
         (popup-tip msg)))))
   (setq langtool-autoshow-message-function
-        'langtool-autoshow-detail-popup)
-  )
+        'langtool-autoshow-detail-popup))
 
 (provide 'init-lang)
 ;;; init-lang.el ends here

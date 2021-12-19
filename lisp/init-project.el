@@ -62,7 +62,5 @@
   :config
   )
 
-
-
 (provide 'init-project)
 ;;; init-project.el ends here

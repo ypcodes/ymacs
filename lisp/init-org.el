@@ -92,8 +92,10 @@
   (setq org-superstar-leading-bullet ?\s
         org-superstar-leading-fallback ?\s
         org-hide-leading-stars nil
-        org-superstar-todo-bullet-alist '(("TODO" . 9744) ("[ ]"  . 9744) ("DONE" . 9745) ("[X]"  . 9745))
-        ))
+        org-superstar-todo-bullet-alist '(("TODO" . 9744)
+                                          ("[ ]"  . 9744)
+                                          ("DONE" . 9745)
+                                          ("[X]"  . 9745))))
 
 (use-package org-pdftools
   :ensure t

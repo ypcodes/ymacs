@@ -1,11 +1,9 @@
 #+TITLE: Yeh Peng's personal Emacs config
 
-* Table of Contents :toc:quote:
-#+BEGIN_QUOTE
+* Table of Contents :toc:noexport:
 - [[#intro][Intro]]
 - [[#install][Install]]
 - [[#adding-your-own-customization][Adding your own customization]]
-#+END_QUOTE
 
 * Intro
 This is my emacs configuration. I have use [[https://github.com/hlissner/doom-emacs][Doom Emacs]] a long time, but
@@ -25,7 +23,7 @@ Then, clone this repository:
 
 * Adding your own customization
 User's configuration should be located in ~$HOME/.ymacs.d/config.el~,
-which should looks like this:
+which should look like this:
 
 #+begin_src emacs-lisp
   ;; your code here

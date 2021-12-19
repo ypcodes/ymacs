@@ -16,6 +16,7 @@
 (defvar emacs-theme nil "What Emacs theme do you use.")
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defconst *use-exwm* t)
+(defconst *use-evil* t)
 
 (eval-when-compile
   (require 'site-gentoo)
@@ -40,7 +41,9 @@
   (require 'init-org)
   (require 'init-misc)
   (require 'init-media)
-  (require 'init-keybindings))
+  (require 'init-keybindings)
+  (if *use-evil*
+      (require 'init-evil)))
 
 (provide 'init)
 

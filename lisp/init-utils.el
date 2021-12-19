@@ -59,7 +59,7 @@
   (interactive)
   (shell-command "sudo reboot"))
 
-(defun ymacs/exwm-logout ()
+(defun ymacs/logout ()
   "Logout from exwm."
   (interactive)
   (bookmark-save)
