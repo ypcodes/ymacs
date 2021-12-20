@@ -11,12 +11,12 @@ recently I am a little dislike it, so I am going to roll my own
 configuration from scratch.
 
 * Install
-First, backup emacs config files:
+First backup emacs config files:
 #+begin_src shell
   mv ~/.emacs.d ~/.emacs.bak
 #+end_src
 
-Then, clone this repository:
+Then clone this repository:
 #+begin_src shell
   git clone --depth=1 https://github.com/ypcodes/ymacs.git ~/.emacs.d
 #+end_src
@@ -31,6 +31,6 @@ which should look like this:
   (provide 'config)
 #+end_src
 
-Note that the better way for PDF reading or music playing... is the
+Note that the better way for PDF reading or music playing etc. is the
 package called [[https://github.com/emacs-eaf/emacs-application-framework][Emacs Application Framework]], but I don't use it because
 of my gentoo.

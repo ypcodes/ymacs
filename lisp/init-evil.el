@@ -54,6 +54,10 @@
   (evil-define-key 'normal 'global (kbd "<leader>ot") 'vterm-toggle)
   (evil-define-key 'normal 'global (kbd "<leader>oe") 'eshell-pop-toggle)
   (evil-define-key 'normal 'global (kbd "<leader>op") 'treemacs)
+  (evil-define-key 'normal 'global (kbd "<leader>wh") 'windmove-left)
+  (evil-define-key 'normal 'global (kbd "<leader>wl") 'windmove-right)
+  (evil-define-key 'normal 'global (kbd "<leader>wk") 'windmove-up)
+  (evil-define-key 'normal 'global (kbd "<leader>wj") 'windmove-down)
   (evil-mode))
 
 (use-package evil-collection

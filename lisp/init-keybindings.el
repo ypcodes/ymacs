@@ -38,7 +38,6 @@
 (global-set-key (kbd "C-c k")    'windmove-up)
 (global-set-key (kbd "C-c k")  'windmove-down)
 
-;; (global-set-key [remap isearch-forward-regexp] #'swiper-isearch)
 ;; escape cancels all
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
