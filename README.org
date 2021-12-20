@@ -30,3 +30,7 @@ which should look like this:
 
   (provide 'config)
 #+end_src
+
+Note that the better way for PDF reading or music playing... is the
+package called [[https://github.com/emacs-eaf/emacs-application-framework][Emacs Application Framework]], but I don't use it because
+of my gentoo.
