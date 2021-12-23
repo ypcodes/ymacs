@@ -77,5 +77,9 @@
   (interactive)
   (find-file "~/.ymacs.d/config.el"))
 
+(defalias 'logout 'ymacs/logout)
+(defalias 'reboot 'ymacs/restart)
+(defalias 'shutdown 'ymacs/shutdown)
+
 (provide 'init-utils)
 ;;; init-utils.el ends here
