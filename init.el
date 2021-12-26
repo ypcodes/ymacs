@@ -23,9 +23,9 @@
   (require 'init-pacmanage)
   (require 'init-benchmark)
   (require 'init-basic)
+  (require 'config nil t)
   (if *use-exwm*
       (require 'init-exwm))
-  (require 'config nil t)
   (require 'init-edit)
   (require 'init-undo)
   (require 'init-fold)

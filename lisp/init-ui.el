@@ -39,6 +39,7 @@
 (use-package centaur-tabs
   :ensure t
   :if (display-graphic-p)
+  :init (setq centaur-tabs-set-icons t)
   :config
   (setq centaur-tabs-style "wave")
   (centaur-tabs-mode t))
