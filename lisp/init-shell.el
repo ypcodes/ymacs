@@ -155,6 +155,8 @@
   :config
   (setq pop-find-parent-directory '(".git" "gradlew")) ;; parent directory should have .git or gradlew file
   (pop-eshell-mode 1)
+  (unbind-key "C-c C-e C-f")
+  (unbind-key "C-c C-e C-e")
   (define-key global-map (kbd "C-c o e") 'eshell-pop-toggle))
 
 (use-package esh-autosuggest
