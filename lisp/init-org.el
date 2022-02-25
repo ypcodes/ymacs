@@ -24,6 +24,8 @@
 
 ;;; Code:
 
+;; (use-package org-plus-contrib)
+
 (use-package org
   :init
   ;; Various preferences
@@ -67,8 +69,11 @@
      (screen . nil)
      (shell . t)
      (sql . t)
+     (mathematica . t)
      (sqlite . t)))
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 3)))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 3))
+  (add-to-list 'org-src-lang-modes '("mathematica" . wolfram))
+)
 
 (use-package org-tempo
   :after org)

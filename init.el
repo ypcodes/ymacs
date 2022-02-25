@@ -27,6 +27,7 @@
   (if *use-exwm*
       (require 'init-exwm))
   (require 'init-edit)
+  (require 'init-math)
   (require 'init-undo)
   (require 'init-fold)
   (require 'init-lang)

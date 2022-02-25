@@ -26,8 +26,11 @@
 
 ;; package manager
 
-(setq package-archives '(("gnu"   . "http://elpa.zilongshanren.com/gnu/")
-                         ("melpa" . "http://elpa.zilongshanren.com/melpa/")))
+;; (setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+;;                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+;;                          ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+;;                          ))
+
 (package-initialize)
 
 ;; install straight
@@ -44,6 +47,13 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 (straight-use-package 'use-package)
+
+(use-package auto-package-update
+   :ensure t
+   :config
+   (setq auto-package-update-delete-old-versions t
+         auto-package-update-interval 4)
+   (auto-package-update-maybe))
 
 (provide 'init-pacmanage)
 ;;; init-pacmanage.el ends here
