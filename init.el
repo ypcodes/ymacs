@@ -19,7 +19,6 @@
 (defconst *use-evil* t)
 
 (eval-when-compile
-  (require 'site-gentoo)
   (require 'init-pacmanage)
   (require 'init-benchmark)
   (require 'init-basic)
